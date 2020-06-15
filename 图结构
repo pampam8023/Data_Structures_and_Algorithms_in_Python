@@ -1,0 +1,73 @@
+# 图结构，从减法意义上看，是仅次于集合的最一般的通用结构---树等结构可以看作是从图减去一些可能性得到（从加法意义上是图加上某些限制条件得到树）
+# 因此，如果用集合描述图，最简单可以表示为一个二元组的集合：{顶点，表示顶点关系的边}
+# 可以在此基础上加上边是否有向--》是否有环等的描述，增加表达能力
+#                   是否有权
+
+
+# 首先要定义顶点类
+class Vertex:
+    def __init__(self, key):
+        # 保存一个编码key; 创建一个空字典记录边
+        self.id = key
+        self.connectedTo = {}
+        
+    def add_neighbour(self, neighbour, weight=0):
+        # 定义增加顶点记录边的方法，边的权重默认为1
+        self.connectedTo[neighbour] = weight
+    
+    def __str__(self):
+        # 用列表表达式重写__str__方法
+        return str(self.id) + 'connected to '  + str([x.id for x in self.connectedTo])
+        
+    def get_connections(self):
+        return self.connectedTo.keys()
+        
+    def get_Id(self):
+        return self.id
+    
+    def get_weight(self):
+        return self.connectedTo[neighbour]
+    
+    
+# 然后基于顶点构建图类（包括所有的顶点的数据结构）    
+class Graph:
+    def __init__(self):
+        # 创建一个空字典保存顶点；一个累计变量保存顶点数
+        self.vertexDict = {}
+        self.numVerteices = 0
+    
+    def add_vertex(self, key):
+        # 调用顶点类的方法创建顶点；保存记录到图
+        newVertex = Vertex(key)
+        self.vertexDict[key] = newVertex
+        self.numVerteices += 1
+        return newVertex
+        
+    def get_vertex(self, n):
+        # 通过key返回顶点
+        if n in self.vertexDict:
+            return self.vertDict[n]
+        else:
+            return None
+      
+    def __contains__(self, n):
+        # 重写in操作
+        return n in self.vertexDict
+    
+    def add_edge(self, fromVertex, toVertex, weight=0):
+        # 判断前后两个顶点是否存在然后添加边
+        if fromVertex not in self.vertexDict:
+            newVertex = self.addVertex(fromVertex)
+        if toVertex not in self.vertexDict:
+            newVertex = self.addVertex(toVertex)
+        self.vertDict[fromVertex].add_neighbour(self.vertDict[toVertex], weight)
+        
+    def get_vertices(self):
+        return self.vertexDict.key()
+        
+    def __iter__(self):
+        # 重写for操作
+        return iter(self.vertexDict.values())
+       
+        
+# 编码规范：方法名用_分割；属性用驼峰命名法
