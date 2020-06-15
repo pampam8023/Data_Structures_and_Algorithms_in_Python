@@ -46,7 +46,7 @@ class Graph:
     def get_vertex(self, n):
         # 通过key返回顶点
         if n in self.vertexDict:
-            return self.vertDict[n]
+            return self.vertexDict[n]
         else:
             return None
       
